@@ -1,13 +1,11 @@
 from flask import Blueprint, render_template, request
 from blueprint_query.database import work_with_db
 from blueprint_query.sql_provider import SQLProvider
+import json
 
-db_config = {
-    'host': '127.0.0.1',
-    'user': 'arcady',
-    'password': 'Password123#@!',
-    'db': 'details'
-}
+with open('blueprint_query/config.json') as json_file:
+    db_config = json.load(json_file)
+
 provider = SQLProvider('blueprint_query/sql')
 user_app = Blueprint('user_app', __name__, template_folder='templates')
 

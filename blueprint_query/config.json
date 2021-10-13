@@ -1,6 +1,6 @@
 {
-    'host': '127.0.0.1',
-    'user': 'arcady',
-    'password': 'Password123#@!',
-    'db': 'details'
+    "host": "127.0.0.1",
+    "user": "arcady",
+    "password": "Password123#@!",
+    "db": "details"
 }
