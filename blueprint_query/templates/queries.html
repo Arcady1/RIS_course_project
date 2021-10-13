@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>User queries page</title>
+</head>
+<body>
+    <div class="content">
+        <div class="queries-menu">
+            <h2>Меню запросов</h2>
+            <ul class="queries-list">
+                <li class="queries__item">
+                    <a href="{{ url_for('user_app.query_1') }}">Получить покупателей из указанного города</a>
+                </li>
+                <li class="queries__item">
+                    <a href="{{ url_for('user_app.query_2') }}">Получить детали, больше указанного веса</a>
+                </li>
+                <li class="queries__item">
+                    <a href="/">Главное меню</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

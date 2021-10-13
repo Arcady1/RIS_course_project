@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Query 2</title>
+</head>
+<body>
+    <div class="content">
+        <div class="query-menu">
+            <h2>Query 2</h2>
+            <div>
+                <form action="{{ url_for('user_app.query_2') }}" method="post">
+                    <span>Укажите вес детали</span> <input type="text" name="data">
+                    <br>
+                    <button type="submit">Получить данные</button>
+                </form>
+            </div>
+            <ul class="query-list">
+                <li class="queries__item">
+                    <a href="/">Главное меню</a>
+                </li>
+            </ul>
+            {% if result is string %}
+            {{ result }}
+            {% else %}
+            <table border="1" width="40%" cellpadding="5">
+            {% for item in result %}
+                <tr>
+                    {% for key, val in item.items() %}
+                    <td>{{ val }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            </table>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
