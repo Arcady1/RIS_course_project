@@ -4,13 +4,7 @@ from blueprint_scenario_auth.scenario_auth import auth_app
 # from RIS_course_project.access.access import login_required
 import json
 
-'''
-session = {
-"group_name": "login"
-}
-'''
 app = Flask(__name__)
-
 app.register_blueprint(user_app, url_prefix='/user')
 app.register_blueprint(auth_app, url_prefix='/auth')
 

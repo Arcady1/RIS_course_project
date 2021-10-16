@@ -1,6 +1,5 @@
-from flask import session, request
+from flask import session, request, current_app
 from functools import wraps
-import json
 
 # Функция проверяет, имеет ли текущий пользователь доступ к url, по которому он прошел
 def group_permission_validation(config: dict, sess: session) -> bool:
@@ -16,8 +15,7 @@ def group_permission_validation(config: dict, sess: session) -> bool:
 def login_permission_required(f):
     @wraps(f)
     def wrapper(*args, **kwargs):
-        # if group_permission_validation(current_app.config['ACCESS_CONFIG'], session):
-        if group_permission_validation(json.load(open('configs/access.json')), session):
+        if group_permission_validation(current_app.config['ACCESS_CONFIG'], session):
             return f(*args, **kwargs)
         return 'Group permission denied'
     return wrapper

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, session
+from flask import Blueprint, render_template, request
 from database.database import work_with_db
 from blueprint_query.sql_provider import SQLProvider
 from RIS_course_project.access.access import login_permission_required
@@ -15,7 +15,6 @@ user_app = Blueprint('user_app', __name__, template_folder='templates')
 @user_app.route('/queries')
 @login_permission_required
 def user_index():
-    # group_permission_validation(json.load(open('configs/access.json')), session)
     return render_template('queries.html')
 
 # Обработчик запроса 1 GET, POST
