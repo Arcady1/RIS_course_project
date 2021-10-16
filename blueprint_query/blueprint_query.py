@@ -2,11 +2,12 @@ from flask import Blueprint, render_template, request
 from blueprint_query.database import work_with_db
 from blueprint_query.sql_provider import SQLProvider
 import json
+import os
 
 with open('blueprint_query/config.json') as json_file:
     db_config = json.load(json_file)
 
-provider = SQLProvider('blueprint_query/sql')
+provider = SQLProvider(os.path.join(os.path.dirname(__file__), 'sql'))
 user_app = Blueprint('user_app', __name__, template_folder='templates')
 
 # Страница вариантов запросов

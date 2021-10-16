@@ -1,14 +1,49 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, session
 from blueprint_query.blueprint_query import user_app
+from blueprint_scenario_auth.scenario_auth import auth_app
+from blueprint_query.access import login_required
+import json
 
+'''
+session = {
+group_name = login
+}
+'''
 app = Flask(__name__)
 
 app.register_blueprint(user_app, url_prefix='/user')
+app.register_blueprint(auth_app, url_prefix='/auth')
+
+# Используется для сессии
+app.config['SECRET_KEY'] = 'super secret key'
+app.config['ACCESS_CONFIG'] = json.load(open('configs/access.json'))
 
 # Главное меню
 @app.route('/')
 def index():
     return render_template('index.html')
+
+# Счетчик в сессии
+@app.route('/counter')
+def count_visits():
+    counter = session.get('count', None)
+    if counter is None:
+        session['count'] = 0
+    else:
+        session['count'] += 1
+    return f"You count is: {session['count']}"
+
+# Очистка сессии
+@app.route('/session-clear')
+def clear_session():
+    session.clear()
+    return ''
+
+# Доступ пользователю
+@app.route('/get-name')
+@login_required
+def select_version():
+    return ('data...')
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=5000, debug=True)
