@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, session, request
+# import configs/access.json
 
 auth_app = Blueprint('auth_app', __name__, template_folder='templates')
 
@@ -11,8 +12,8 @@ def login_page():
         login = request.form.get('login', None)
         password = request.form.get('password', None)
 
-        if login == 'login' and password == 'password':
+        if login == 'l' and password == 'p':
             session['group_name'] = login
-            return 'Success'
+            return f"{session.keys()} {session.values()}"
         else:
             return 'Invalid login or password'

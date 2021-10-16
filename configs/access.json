@@ -1,13 +1,14 @@
 {
-  "typical": [
-    "",
-    "auth"
-  ],
-  "admin": [
-    "",
-    "auth"
-  ],
-  "unauthorized": [
-    "auth"
-  ]
+  "typical": {
+    "password": "123",
+    "urls": ["", "auth"]
+  },
+  "admin": {
+    "password": "1234",
+    "urls": ["", "auth"]
+  },
+  "unauthorized": {
+    "password": null,
+    "urls": ["auth"]
+  }
 }
