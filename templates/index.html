@@ -22,9 +22,12 @@
                     <a href="{{ url_for('auth_app.login_page') }}">Авторизация</a>
                 </li>
                 <li class="menu__item">
-                    <a href="#">Выход</a>
+                     <form action="{{ url_for('index') }}" method="post">
+                        <button type="submit">Выход</button>
+                     </form>
                 </li>
             </ul>
+            <p>Current user: {{ user_type }}</p>
         </div>
     </div>
 </body>

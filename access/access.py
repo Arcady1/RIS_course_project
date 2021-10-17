@@ -1,4 +1,4 @@
-from flask import session, request, current_app
+from flask import session, request, current_app, render_template
 from functools import wraps
 
 # Функция проверяет, имеет ли текущий пользователь доступ к url, по которому он прошел
@@ -17,5 +17,5 @@ def login_permission_required(f):
     def wrapper(*args, **kwargs):
         if group_permission_validation(current_app.config['ACCESS_CONFIG'], session):
             return f(*args, **kwargs)
-        return 'Group permission denied'
+        return render_template('permission_denied.html')
     return wrapper
