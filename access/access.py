@@ -12,6 +12,7 @@ def group_permission_validation(config: dict, sess: session) -> bool:
         return True
     return False
 
+# Проверяет, есть ли пользователь в сессии
 def login_permission_required(f):
     @wraps(f)
     def wrapper(*args, **kwargs):

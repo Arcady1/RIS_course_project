@@ -1,11 +1,15 @@
 {
-  "typical": {
+  "chief": {
     "password": "123",
-    "urls": ["", "auth"]
-  },
-  "admin": {
-    "password": "1234",
     "urls": ["", "auth", "user_app"]
+  },
+  "shop_assistant": {
+    "password": "1234",
+    "urls": ["", "auth", "WAYBILL"]
+  },
+  "senior_shop_assistant": {
+    "password": "12345",
+    "urls": ["", "auth", "REPORTS"]
   },
   "unauthorized": {
     "password": null,
