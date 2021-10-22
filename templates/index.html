@@ -16,15 +16,13 @@
                     <a href="{{ url_for('user_app.user_index') }}">Работа с запросами</a>
                 </li>
                 <li class="menu__item">
-                    <a href="#">Работа с отчётами</a>
+                    <a href="{{ url_for('user_cart.cart_page') }}">Коризна</a>
                 </li>
                 <li class="menu__item">
                     <a href="{{ url_for('auth_app.login_page') }}">Авторизация</a>
                 </li>
                 <li class="menu__item">
-                     <form action="{{ url_for('index') }}" method="post">
-                        <button type="submit">Выход</button>
-                     </form>
+                    <a href="{{ url_for('index_exit') }}">Выход</a>
                 </li>
             </ul>
             <p>Current user: {{ user_type }}</p>

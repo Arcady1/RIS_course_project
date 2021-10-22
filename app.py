@@ -2,12 +2,14 @@ import requests
 from flask import Flask, render_template, session, request
 from blueprint_query.blueprint_query import user_app
 from blueprint_scenario_auth.scenario_auth import auth_app
+from blueprint_cart.blueprint_cart import user_cart
 import json
 from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
 app.register_blueprint(user_app, url_prefix='/user')
 app.register_blueprint(auth_app, url_prefix='/auth')
+app.register_blueprint(user_cart, url_prefix='/cart')
 
 # Используется для сессии
 app.config['SECRET_KEY'] = 'super secret key'
@@ -16,13 +18,18 @@ app.config['ACCESS_CONFIG'] = json.load(open('configs/access.json'))
 Bootstrap(app)
 
 # Главное меню
-@app.route('/', methods=["GET", "POST"])
+@app.route('/')
 def index():
     # Очистка сессии, если метод - POST
     if request.method == "POST":
         session.clear()
     return render_template('index.html', user_type=set_get_session_group_name())
 
+@app.route('/exit')
+def index_exit():
+    # Очистка сессии
+    session.clear()
+    return render_template('exit.html')
 
 def set_get_session_group_name():
     user_type = session.get('group_name', 'unauthorized')

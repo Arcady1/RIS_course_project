@@ -3,8 +3,7 @@ from functools import wraps
 
 # Функция проверяет, имеет ли текущий пользователь доступ к url, по которому он прошел
 def group_permission_validation(config: dict, sess: session) -> bool:
-    group = sess.get('group_name', 'unauthorized')
-    sess['group_name'] = group
+    group = sess.get('group_name')
     # Куда пользователь хочет обратиться. При 1 - index.html
     splited_endpoint = request.endpoint.split('.')
     target_app = "" if len(splited_endpoint) == 1 else splited_endpoint[-1]
