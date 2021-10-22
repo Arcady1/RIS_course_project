@@ -6,7 +6,8 @@ def group_permission_validation(config: dict, sess: session) -> bool:
     group = sess.get('group_name', 'unauthorized')
     sess['group_name'] = group
     # Куда пользователь хочет обратиться. При 1 - index.html
-    target_app = "" if len(request.endpoint.split('.')) == 1 else request.endpoint.split('.')[0]
+    splited_endpoint = request.endpoint.split('.')
+    target_app = "" if len(splited_endpoint) == 1 else splited_endpoint[-1]
 
     if (group in config.keys()) and (target_app in config[group]['urls']):
         return True

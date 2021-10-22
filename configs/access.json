@@ -1,11 +1,11 @@
 {
   "chief": {
     "password": "123",
-    "urls": ["", "auth", "user_app"]
+    "urls": ["", "auth", "user_index", "query_1"]
   },
   "shop_assistant": {
     "password": "1234",
-    "urls": ["", "auth", "WAYBILL"]
+    "urls": ["", "auth", "user_index", "query_2", "WAYBILL"]
   },
   "senior_shop_assistant": {
     "password": "12345",
