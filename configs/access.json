@@ -1,18 +1,6 @@
 {
-  "chief": {
-    "password": "123",
-    "urls": ["", "auth", "user_index", "query_1"]
-  },
-  "shop_assistant": {
-    "password": "1234",
-    "urls": ["", "auth", "user_index", "query_2", "WAYBILL"]
-  },
-  "senior_shop_assistant": {
-    "password": "12345",
-    "urls": ["", "auth", "REPORTS"]
-  },
-  "unauthorized": {
-    "password": null,
-    "urls": ["auth"]
-  }
+  "chief": ["", "auth", "user_index", "query_1"],
+  "shop_assistant": ["", "auth", "user_index", "query_2", "WAYBILL"],
+  "senior_shop_assistant": ["", "auth", "REPORTS"],
+  "unauthorized": ["auth"]
 }

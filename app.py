@@ -20,17 +20,15 @@ Bootstrap(app)
 # Главное меню
 @app.route('/')
 def index():
-    # Очистка сессии, если метод - POST
-    if request.method == "POST":
-        session.clear()
     return render_template('index.html', user_type=set_get_session_group_name())
 
+# Очистка сессии
 @app.route('/exit')
 def index_exit():
-    # Очистка сессии
     session.clear()
     return render_template('exit.html')
 
+# Функция инициализирует пользователя
 def set_get_session_group_name():
     user_type = session.get('group_name', 'unauthorized')
     session['group_name'] = user_type

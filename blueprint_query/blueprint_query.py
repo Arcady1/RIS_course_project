@@ -1,14 +1,18 @@
 from flask import Blueprint, render_template, request
+from RIS_course_project.access.access import login_permission_required
+
+# ====================================================================
 from database.database import work_with_db
 from blueprint_query.sql_provider import SQLProvider
-from RIS_course_project.access.access import login_permission_required
-import json
 import os
+import json
 
 with open('database/config.json') as json_file:
     db_config = json.load(json_file)
 
 provider = SQLProvider(os.path.join(os.path.dirname(__file__), 'sql'))
+# ====================================================================
+
 user_app = Blueprint('user_app', __name__, template_folder='templates')
 
 # Страница вариантов запросов

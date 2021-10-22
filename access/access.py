@@ -8,7 +8,7 @@ def group_permission_validation(config: dict, sess: session) -> bool:
     splited_endpoint = request.endpoint.split('.')
     target_app = "" if len(splited_endpoint) == 1 else splited_endpoint[-1]
 
-    if (group in config.keys()) and (target_app in config[group]['urls']):
+    if (group in config.keys()) and (target_app in config[group]):
         return True
     return False
 
