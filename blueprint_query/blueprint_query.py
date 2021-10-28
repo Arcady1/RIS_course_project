@@ -21,11 +21,18 @@ user_app = Blueprint('user_app', __name__, template_folder='templates')
 def user_index():
     return render_template('queries.html')
 
-# Обработчик запроса 1 GET, POST
-@user_app.route('/queries/query_1', methods=["GET", "POST"])
+# Обработчик запроса 1 GET
+@user_app.route('/queries/query_1')
 @login_permission_required
 def query_1():
+    return render_template('query_1.html')
+
+# Результат запроса 1
+@user_app.route('/queries/query_1/query_1_result', methods=["POST"])
+@login_permission_required
+def query_1_result():
     result = ''
+    title = "Список покупателей из указанного города"
 
     if request.method == "POST":
         data = request.form.get('data')
@@ -34,13 +41,20 @@ def query_1():
 
         if not result:
             result = 'Not found'
-    return render_template('query_1.html', result=result)
+    return render_template('query_results.html', title=title, result=result, col_titles=["ID покупателя", "Дата заключения контракта", "Имя", "Город"])
 
-# Обработчик запроса 2 GET, POST
-@user_app.route('/queries/query_2', methods=["GET", "POST"])
+# Обработчик запроса 2 GET
+@user_app.route('/queries/query_2')
 @login_permission_required
 def query_2():
+    return render_template('query_2.html')
+
+# Результат запроса 2
+@user_app.route('/queries/query_2', methods=["POST"])
+@login_permission_required
+def query_2_result():
     result = ''
+    title = "Список деталей, больше указанного веса"
 
     if request.method == "POST":
         data = request.form.get('data')
@@ -49,4 +63,10 @@ def query_2():
 
         if not result:
             result = 'Not found'
-    return render_template('query_2.html', result=result)
+    return render_template('query_results.html', title=title, result=result, col_titles=["ID детали",
+                                                                                         "Название детали",
+                                                                                         "Материал",
+                                                                                         "Вес",
+                                                                                         "Стоимость",
+                                                                                         "Количество на складе",
+                                                                                         "Обновлено"])

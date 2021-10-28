@@ -1,6 +1,6 @@
 {
-  "chief": ["", "auth", "user_index", "query_1"],
-  "shop_assistant": ["", "auth", "user_index", "query_2", "WAYBILL"],
+  "chief": ["", "auth", "user_index", "query_1", "query_1_result"],
+  "shop_assistant": ["", "auth", "user_index", "query_2", "query_2_result", "WAYBILL"],
   "senior_shop_assistant": ["", "auth", "REPORTS"],
   "unauthorized": ["auth"]
 }

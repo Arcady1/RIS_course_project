@@ -36,7 +36,7 @@ def login_page():
 
         if group_name in config.keys():
             session['group_name'] = group_name
-            auth_result = "Successful login!"
+            auth_result = "Вы вошли в систему!"
         else:
-            auth_result = 'Invalid login or password!'
+            auth_result = 'Некорректный логин или пароль!'
     return render_template('auth.html', auth_result=auth_result, user_type=session['group_name'])
