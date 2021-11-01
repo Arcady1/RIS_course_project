@@ -14,6 +14,7 @@ provider = SQLProvider(os.path.join(os.path.dirname(__file__), 'sql'))
 
 auth_app = Blueprint('auth_app', __name__, template_folder='templates')
 
+
 # Функция возвращает group_name пользователя
 def get_group_name_from_db(login, password):
     sql = provider.get('query_1.sql', user_name=login, user_password=password)
@@ -23,10 +24,11 @@ def get_group_name_from_db(login, password):
         return None
     return result[0]['user_group']
 
+
 # Сценарий авторизации пользователя
 @auth_app.route('/', methods=['GET', 'POST'])
 def login_page():
-    auth_result = ''
+    auth_result = ""
 
     if request.method == 'POST':
         login = request.form.get('login', None)
@@ -36,7 +38,7 @@ def login_page():
 
         if group_name in config.keys():
             session['group_name'] = group_name
-            auth_result = "Вы вошли в систему!"
+            auth_result = "OK"
         else:
-            auth_result = 'Некорректный логин или пароль!'
+            auth_result = "NO"
     return render_template('auth.html', auth_result=auth_result, user_type=session['group_name'])

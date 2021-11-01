@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, session
 from RIS_course_project.access.access import login_permission_required
 
 # ====================================================================
@@ -15,17 +15,20 @@ provider = SQLProvider(os.path.join(os.path.dirname(__file__), 'sql'))
 
 user_app = Blueprint('user_app', __name__, template_folder='templates')
 
+
 # Страница вариантов запросов
 @user_app.route('/queries')
 @login_permission_required
 def user_index():
-    return render_template('queries.html')
+    return render_template('queries.html', user_type=session.get('group_name'))
+
 
 # Обработчик запроса 1 GET
 @user_app.route('/queries/query_1')
 @login_permission_required
 def query_1():
-    return render_template('query_1.html')
+    return render_template('query_1.html', user_type=session.get('group_name'))
+
 
 # Результат запроса 1
 @user_app.route('/queries/query_1/query_1_result', methods=["POST"])
@@ -41,13 +44,16 @@ def query_1_result():
 
         if not result:
             result = 'Not found'
-    return render_template('query_results.html', title=title, result=result, col_titles=["ID покупателя", "Дата заключения контракта", "Имя", "Город"])
+    return render_template('query_results.html', user_type=session.get('group_name'), title=title, result=result,
+                           col_titles=["ID покупателя", "Дата заключения контракта", "Имя", "Город"])
+
 
 # Обработчик запроса 2 GET
 @user_app.route('/queries/query_2')
 @login_permission_required
 def query_2():
     return render_template('query_2.html')
+
 
 # Результат запроса 2
 @user_app.route('/queries/query_2', methods=["POST"])
@@ -63,10 +69,11 @@ def query_2_result():
 
         if not result:
             result = 'Not found'
-    return render_template('query_results.html', title=title, result=result, col_titles=["ID детали",
-                                                                                         "Название детали",
-                                                                                         "Материал",
-                                                                                         "Вес",
-                                                                                         "Стоимость",
-                                                                                         "Количество на складе",
-                                                                                         "Обновлено"])
+    return render_template('query_results.html', user_type=session.get('group_name'), title=title, result=result,
+                           col_titles=["ID детали",
+                                       "Название детали",
+                                       "Материал",
+                                       "Вес",
+                                       "Стоимость",
+                                       "Количество на складе",
+                                       "Обновлено"])

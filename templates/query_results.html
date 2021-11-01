@@ -1,43 +1,35 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Query 1</title>
-</head>
-<body>
-    <div class="content">
-        <div class="query-menu">
-            <h2>{{ title }}</h2>
-            {% if result is string %}
-            {{ result }}
-            {% else %}
-            <table border="1" width="40%" cellpadding="5">
-                <tr>
-                    {% for col_title in col_titles %}
-                    <td>{{ col_title }}</td>
-                    {% endfor %}
-                </tr>
-                {% for item in result %}
-                <tr>
-                    {% for key, val in item.items() %}
-                    <td>{{ val }}</td>
-                    {% endfor %}
-                </tr>
-            {% endfor %}
-            </table>
-            {% endif %}
-            <ul class="query-list">
-                <li class="queries__item">
-                    <a href="{{ url_for('user_app.user_index') }}">Назад к списку запросов</a>
-                </li>
-                <li class="queries__item">
-                    <a href="/">Главное меню</a>
-                </li>
-            </ul>
-        </div>
+{% extends "bootstrap/base.html" %}
+{% block content %}
+<div class="wrapper" style="max-width: 700px; margin: 0 auto;">
+    <div class="page-header" style="display: flex; justify-content: space-between;">
+        <h1>{{ title }}</h1>
     </div>
-</body>
-</html>
+    <div class="list-group">
+        <a href="{{ url_for('user_app.user_index') }}" class="list-group-item">Назад к списку запросов</a>
+        <a href="/" class="list-group-item">Главное меню</a>
+    </div>
+    {% if result is string %}
+    {{ result }}
+    {% else %}
+    <table class="table table-hover">
+        <thead class="thead-dark">
+        <tr>
+            {% for col_title in col_titles %}
+            <th scope="col">{{ col_title }}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for item in result %}
+        <tr>
+            {% for val in item.values() %}
+            <td>{{ val }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,32 +1,20 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Query 1</title>
-</head>
-<body>
-    <div class="content">
-        <div class="query-menu">
-            <h2>Получить список покупателей из указанного города</h2>
-            <div>
-                <form action="{{ url_for('user_app.query_1_result') }}" method="post">
-                    <span>Укажите город</span> <input type="text" name="data">
-                    <br>
-                    <button type="submit">Получить данные</button>
-                </form>
-            </div>
-            <ul class="query-list">
-                <li class="queries__item">
-                    <a href="{{ url_for('user_app.user_index') }}">Назад</a>
-                </li>
-                <li class="queries__item">
-                    <a href="/">Главное меню</a>
-                </li>
-            </ul>
-        </div>
+{% extends "bootstrap/base.html" %}
+{% block content %}
+<div class="wrapper" style="max-width: 700px; margin: 0 auto;">
+    <div class="page-header" style="display: flex; justify-content: space-between;">
+        <h1>Получить список покупателей из указанного города</h1>
     </div>
-</body>
-</html>
+    <div class="list-group">
+        <a href="{{ url_for('user_app.user_index') }}" class="list-group-item">Назад</a>
+        <a href="/" class="list-group-item">Главное меню</a>
+    </div>
+    <form action="{{ url_for('user_app.query_1_result') }}" method="post">
+        <div class="form-group">
+            <label for="exampleInputEmail1">Укажите город</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                   placeholder="Город" name="data">
+        </div>
+        <button type="submit" class="btn btn-primary">Получить данные</button>
+    </form>
+</div>
+{% endblock %}

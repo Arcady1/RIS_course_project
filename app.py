@@ -1,5 +1,5 @@
 import requests
-from flask import Flask, render_template, session, request
+from flask import Flask, render_template, session
 from blueprint_query.blueprint_query import user_app
 from blueprint_scenario_auth.scenario_auth import auth_app
 from blueprint_cart.blueprint_cart import user_cart
@@ -17,10 +17,12 @@ app.config['ACCESS_CONFIG'] = json.load(open('configs/access.json'))
 
 Bootstrap(app)
 
+
 # Главное меню
 @app.route('/')
 def index():
     return render_template('index.html', user_type=set_get_session_group_name())
+
 
 # Очистка сессии
 @app.route('/exit')
@@ -28,11 +30,13 @@ def index_exit():
     session.clear()
     return render_template('exit.html')
 
+
 # Функция инициализирует пользователя
 def set_get_session_group_name():
     user_type = session.get('group_name', 'unauthorized')
     session['group_name'] = user_type
     return user_type
+
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=5000, debug=True)

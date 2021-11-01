@@ -1,32 +1,15 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>User index page</title>
-</head>
-<body>
-    <div class="content">
-        <div class="main-menu">
-            <h2>Главное меню</h2>
-            <ul class="menu-list">
-                <li class="menu__item">
-                    <a href="{{ url_for('user_app.user_index') }}">Работа с запросами</a>
-                </li>
-                <li class="menu__item">
-                    <a href="{{ url_for('user_cart.cart_page') }}">Коризна</a>
-                </li>
-                <li class="menu__item">
-                    <a href="{{ url_for('auth_app.login_page') }}">Авторизация</a>
-                </li>
-                <li class="menu__item">
-                    <a href="{{ url_for('index_exit') }}">Выход</a>
-                </li>
-            </ul>
-            <p>Текущий пользователь: {{ user_type }}</p>
-        </div>
+{% extends "bootstrap/base.html" %}
+{% block content %}
+<div class="wrapper" style="max-width: 700px; margin: 0 auto;">
+    <div class="page-header" style="display: flex; justify-content: space-between;">
+        <h1>Главное меню</h1>
+        <h1><small>{{ user_type }}</small></h1>
     </div>
-</body>
-</html>
+    <div class="list-group">
+        <a href="{{ url_for('user_app.user_index') }}" class="list-group-item">Работа с запросами</a>
+        <a href="{{ url_for('user_cart.cart_page') }}" class="list-group-item">Коризна</a>
+        <a href="{{ url_for('auth_app.login_page') }}" class="list-group-item">Авторизация</a>
+        <a href="{{ url_for('index_exit') }}" class="list-group-item">Выход</a>
+    </div>
+</div>
+{% endblock %}
