@@ -1,6 +1,28 @@
 {
-  "chief": ["", "auth", "user_index", "query_1", "query_1_result"],
-  "shop_assistant": ["", "auth", "user_index", "query_2", "query_2_result", "WAYBILL"],
-  "senior_shop_assistant": ["", "auth", "REPORTS"],
-  "unauthorized": ["auth"]
+  "chief": [
+    "",
+    "auth",
+    "queries",
+    "query_1",
+    "query_1_result",
+    "query_2",
+    "query_2_result"
+  ],
+  "shop_assistant": [
+    "",
+    "auth",
+    "queries",
+    "query_1",
+    "query_1_result"
+  ],
+  "senior_shop_assistant": [
+    "",
+    "auth",
+    "queries",
+    "query_2",
+    "query_2_result"
+  ],
+  "unauthorized": [
+    "auth"
+  ]
 }
