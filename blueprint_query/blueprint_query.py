@@ -35,12 +35,13 @@ def query_1():
 @login_permission_required
 def query_1_result():
     result = ''
-    title = "Список покупателей из указанного города"
+    title = "Список покупателей из города"
 
     if request.method == "POST":
         data = request.form.get('data')
         sql = provider.get('query_1.sql', city=data)
         result = work_with_db(db_config, sql)
+        title += f" {data if data else '-'}"
 
         if not result:
             result = 'Not found'
@@ -60,12 +61,13 @@ def query_2():
 @login_permission_required
 def query_2_result():
     result = ''
-    title = "Список деталей, больше указанного веса"
+    title = "Список деталей, больше"
 
     if request.method == "POST":
         data = request.form.get('data')
         sql = provider.get('query_2.sql', weight=data)
         result = work_with_db(db_config, sql)
+        title += f" {data if data else 0}г"
 
         if not result:
             result = 'Not found'
