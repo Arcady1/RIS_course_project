@@ -12,14 +12,20 @@
         <a href="{{ url_for('user_edit.edit_index') }}" class="list-group-item">Назад</a>
         <a href="/" class="list-group-item">Главное меню</a>
     </div>
-    <div align=center>
-        <p>Введите информацию о новом товаре</p>
-        <form action="" method="post">
-            <input type="text" name="item_name" placeholder="Название детали"><br><br>
-            <input type="text" name="item_weight" placeholder="Вес"><br><br>
-            <input type="text" name="item_price" placeholder="Цена"><br><br>
-            <input type="submit" name="insert" placeholder="Добавить"><br><br>
-        </form>
-    </div>
+    <form action="" method="post">
+        <div class="form-group">
+            <label for="detailName">Название детали</label>
+            <input type="text" class="form-control" id="detailName" placeholder="Название" name="item_name">
+        </div>
+        <div class="form-group">
+            <label for="detailWeight">Вес детали</label>
+            <input type="text" class="form-control" id="detailWeight" placeholder="Вес" name="item_weight">
+        </div>
+        <div class="form-group">
+            <label for="detailPrice">Цена детали</label>
+            <input type="text" class="form-control" id="detailPrice" placeholder="Цена" name="item_price">
+        </div>
+        <button type="submit" class="btn btn-primary" name="insert">Добавить</button>
+    </form>
 </div>
 {% endblock %}

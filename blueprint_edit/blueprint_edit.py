@@ -35,8 +35,8 @@ def edit_index():
 
         if not result:
             result = 'Not found'
-    return render_template('edit_index.html', result=result, col_titles=["ID детали", "Тип", "Материал", "Вес (г)", "Цена", ""])
-
+    return render_template('edit_index.html', result=result, col_titles=["ID детали", "Тип", "Вес (г)",
+                                                                         "Цена", " "])
 
 # Страница добавления деталей
 @user_edit.route('/insert', methods=["GET", "POST"])
