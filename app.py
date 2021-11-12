@@ -3,6 +3,7 @@ from flask import Flask, render_template, session
 from blueprint_query.blueprint_query import user_app
 from blueprint_scenario_auth.scenario_auth import auth_app
 from blueprint_cart.blueprint_cart import user_cart
+from blueprint_edit.blueprint_edit import user_edit
 import json
 from flask_bootstrap import Bootstrap
 
@@ -10,6 +11,7 @@ app = Flask(__name__)
 app.register_blueprint(user_app, url_prefix='/user')
 app.register_blueprint(auth_app, url_prefix='/auth')
 app.register_blueprint(user_cart, url_prefix='/cart')
+app.register_blueprint(user_edit, url_prefix='/edit')
 
 # Используется для сессии
 app.config['SECRET_KEY'] = 'super secret key'

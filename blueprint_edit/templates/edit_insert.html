@@ -1,0 +1,25 @@
+{% extends "bootstrap/base.html" %}
+{% block head %}
+<title>Добавить товар</title>
+{{ super() }}
+{% endblock %}
+{% block content %}
+<div class="wrapper" style="max-width: 700px; margin: 0 auto;">
+    <div class="page-header" style="display: flex; justify-content: space-between;">
+        <h1>Меню добавления товара</h1>
+    </div>
+    <div class="list-group">
+        <a href="{{ url_for('user_edit.edit_index') }}" class="list-group-item">Назад</a>
+        <a href="/" class="list-group-item">Главное меню</a>
+    </div>
+    <div align=center>
+        <p>Введите информацию о новом товаре</p>
+        <form action="" method="post">
+            <input type="text" name="item_name" placeholder="Название детали"><br><br>
+            <input type="text" name="item_weight" placeholder="Вес"><br><br>
+            <input type="text" name="item_price" placeholder="Цена"><br><br>
+            <input type="submit" name="insert" placeholder="Добавить"><br><br>
+        </form>
+    </div>
+</div>
+{% endblock %}
