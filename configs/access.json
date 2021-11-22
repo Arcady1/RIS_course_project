@@ -1,28 +1,40 @@
 {
-  "chief": [
-    "",
-    "auth",
-    "queries",
-    "query_1",
-    "query_1_result",
-    "query_2",
-    "query_2_result"
-  ],
-  "shop_assistant": [
-    "",
-    "auth",
-    "queries",
-    "query_1",
-    "query_1_result"
-  ],
-  "senior_shop_assistant": [
-    "",
-    "auth",
-    "queries",
-    "query_2",
-    "query_2_result"
-  ],
-  "unauthorized": [
-    "auth"
-  ]
+  "chief": {
+    "name": "Директор",
+    "url": [
+      "",
+      "auth",
+      "queries",
+      "query_1",
+      "query_1_result",
+      "query_2",
+      "query_2_result"
+    ]
+  },
+  "shop_assistant": {
+    "name": "Менеджер",
+    "url": [
+      "",
+      "auth",
+      "queries",
+      "query_1",
+      "query_1_result"
+    ]
+  },
+  "senior_shop_assistant": {
+    "name": "Старший менеджер",
+    "url": [
+      "",
+      "auth",
+      "queries",
+      "query_2",
+      "query_2_result"
+    ]
+  },
+  "unauthorized": {
+    "name": "Не авторизован",
+    "url": [
+      "auth"
+    ]
+  }
 }

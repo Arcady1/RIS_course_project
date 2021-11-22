@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, session, request, current_app
+from utils.session import get_session_group_name
 
 # ====================================================================
 from database.database import work_with_db
@@ -42,4 +43,4 @@ def login_page():
             auth_result = "OK"
         else:
             auth_result = "NO"
-    return render_template('auth.html', auth_result=auth_result, user_type=session['group_name'])
+    return render_template('auth.html', auth_result=auth_result, user_type=get_session_group_name())

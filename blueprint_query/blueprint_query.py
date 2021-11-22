@@ -1,5 +1,6 @@
-from flask import Blueprint, render_template, request, session
-from RIS_course_project.access.access import login_permission_required
+from flask import Blueprint, render_template, request
+from access.access import login_permission_required
+from utils.session import get_session_group_name
 
 # ====================================================================
 from database.database import work_with_db
@@ -20,14 +21,14 @@ user_app = Blueprint('user_app', __name__, template_folder='templates')
 @user_app.route('/queries')
 @login_permission_required
 def user_index():
-    return render_template('queries.html', user_type=session.get('group_name'))
+    return render_template('queries.html', user_type=get_session_group_name())
 
 
 # Обработчик запроса 1 GET
 @user_app.route('/queries/query_1')
 @login_permission_required
 def query_1():
-    return render_template('query_1.html', user_type=session.get('group_name'))
+    return render_template('query_1.html', user_type=get_session_group_name())
 
 
 # Результат запроса 1
@@ -45,7 +46,7 @@ def query_1_result():
 
         if not result:
             result = 'Not found'
-    return render_template('query_results.html', user_type=session.get('group_name'), title=title, result=result,
+    return render_template('query_results.html', user_type=get_session_group_name(), title=title, result=result,
                            col_titles=["ID покупателя", "Дата заключения контракта", "Имя", "Город"])
 
 
@@ -71,7 +72,7 @@ def query_2_result():
 
         if not result:
             result = 'Not found'
-    return render_template('query_results.html', user_type=session.get('group_name'), title=title, result=result,
+    return render_template('query_results.html', user_type=get_session_group_name(), title=title, result=result,
                            col_titles=["ID детали",
                                        "Название детали",
                                        "Материал",
