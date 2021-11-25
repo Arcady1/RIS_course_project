@@ -1,6 +1,13 @@
+# Стандартные пакеты
+import json
+
 # Сторонние пакеты
 import pymysql
 import pymysql.err as OperationalError
+
+# Чтение конфигурации БД
+with open('database/config.json') as json_file:
+    db_config = json.load(json_file)
 
 class DBConnection:
     """
@@ -34,7 +41,7 @@ class DBConnection:
         return True
 
 
-def work_with_db(config, sql):
+def work_with_db(sql, config=db_config):
     """
     Функция выполняет запрос к БД и возвращает результат
 

@@ -1,18 +1,16 @@
+# Стандартные пакеты
+import os
+
+# Сторонние пакеты
 from flask import Blueprint, render_template, request
+
+# Модули проекта
 from access.access import login_permission_required
 from utils.session import get_session_group_name
-
-# ====================================================================
 from database.database import work_with_db
-from blueprint_query.sql_provider import SQLProvider
-import os
-import json
-
-with open('database/config.json') as json_file:
-    db_config = json.load(json_file)
+from database.sql_provider import SQLProvider
 
 provider = SQLProvider(os.path.join(os.path.dirname(__file__), 'sql'))
-# ====================================================================
 
 user_app = Blueprint('user_app', __name__, template_folder='templates')
 
@@ -41,7 +39,7 @@ def query_1_result():
     if request.method == "POST":
         data = request.form.get('data')
         sql = provider.get('query_1.sql', city=data)
-        result = work_with_db(db_config, sql)
+        result = work_with_db(sql)
         title += f" {data if data else '-'}"
 
         if not result:
@@ -67,7 +65,7 @@ def query_2_result():
     if request.method == "POST":
         data = request.form.get('data')
         sql = provider.get('query_2.sql', weight=data)
-        result = work_with_db(db_config, sql)
+        result = work_with_db(sql)
         title += f" {data if data else 0}г"
 
         if not result:

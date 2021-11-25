@@ -1,17 +1,15 @@
-from flask import Blueprint, render_template, session, request, current_app
-from utils.session import get_session_group_name
-
-# ====================================================================
-from database.database import work_with_db
-from blueprint_scenario_auth.sql_provider import SQLProvider
+# Стандартные пакеты
 import os
-import json
 
-with open('database/config.json') as json_file:
-    db_config = json.load(json_file)
+# Сторонние пакеты
+from flask import Blueprint, render_template, session, request, current_app
+
+# Модули проекта
+from utils.session import get_session_group_name
+from database.database import work_with_db
+from database.sql_provider import SQLProvider
 
 provider = SQLProvider(os.path.join(os.path.dirname(__file__), 'sql'))
-# ====================================================================
 
 auth_app = Blueprint('auth_app', __name__, template_folder='templates')
 
@@ -19,7 +17,7 @@ auth_app = Blueprint('auth_app', __name__, template_folder='templates')
 # Функция возвращает group_name пользователя
 def get_group_name_from_db(login, password):
     sql = provider.get('query_1.sql', user_name=login, user_password=password)
-    result = work_with_db(db_config, sql)
+    result = work_with_db(sql)
 
     if not result:
         return None
