@@ -1,7 +1,12 @@
+# Стандартные пакеты
 import os
 from string import Template
 
 class SQLProvider:
+    """
+    Класс инициализирует словарь, где каждому sql файлу соответствует свой запрос
+    """
+
     def __init__(self, file_path: str) -> None:
         # = > _scripts = {'query_1.database: "select * from waybill where id = ///'
         self._scripts = {}
