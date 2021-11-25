@@ -12,9 +12,11 @@ provider = SQLProvider(os.path.join(os.path.dirname(__file__), 'sql'))
 
 
 # Функция добавления товара в корзину
-def add_to_basket(product):
+def add_to_basket(product, customer_id):
     basket = session.get('basket', [])
 
+    # Добавление id пользователя к каждому выбранному товару
+    product["customer_id"] = customer_id
     # Ссылка на товар в корзине
     product_link = None
 
@@ -41,19 +43,35 @@ def clear_basket():
 
 
 # Функция добавления товара в коризу в БД
-def add_to_BD():
+def add_to_BD(waybill_id, waybill_date):
+    # Собранная корзина
     basket = session.get('basket', [])
 
+    # Общая сумма заказа
+    total_cost = 0
+
     for product in basket:
-        sql = provider.get('add_product_to_basket.sql',
-                           detail_id=product['idtest_details'],
-                           detail_type=product['detail_type'],
-                           detail_weight=product['detail_weight'],
-                           detail_price=product['detail_price'])
+        total_cost += int(product["count"]) * int(product["detail_price"])
+
+        # Внесение данных в waybill_str
+        sql = provider.get('add_to_waybill_str.sql',
+                           waybill_id=waybill_id,
+                           details_count=product["count"],
+                           detail_id=product["iddetail"])
         work_with_db(sql)
 
+    # Внесение данных в waybill
+    sql = provider.get('add_to_waybill.sql',
+                       waybill_date=waybill_date,
+                       waybill_id=waybill_id,
+                       full_price=total_cost,
+                       customer_id=session.get('customer_ID'))
+    work_with_db(sql)
 
-# Функция очистки корзины в БД
+    # Функция очистки корзины в БД
+    clear_basket()
+
+
 def clear_basket_DB():
     sql = provider.get('clear_basket.sql')
     work_with_db(sql)

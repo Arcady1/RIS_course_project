@@ -1,4 +1,5 @@
 # Стандартные пакеты
+from datetime import date
 import os
 
 # Сторонние пакеты
@@ -13,18 +14,17 @@ provider = SQLProvider(os.path.join(os.path.dirname(__file__), 'sql'))
 
 user_basket = Blueprint('user_basket', __name__, template_folder='templates')
 
-# ID выбранного пользователя
-customer_ID = None
-
 
 # Отрисовка каталога товаров и корзины
 @user_basket.route('/', methods=["GET", "POST"])
 @user_basket.route('/<int:idcustomer>', methods=["GET", "POST"])
 def register_orders_handler(idcustomer=None):
-    # Инициализация ID выбранного пользователя и сохранение его глобально
+    # Инициализация ID выбранного пользователя и сохранение его в сессии
+    session.get('customer_ID', None)
+
+    # Если ID пользователя поменялся, то перезаписываем его
     if idcustomer:
-        global customer_ID
-        customer_ID = idcustomer
+        session['customer_ID'] = idcustomer
         # При смене покупателя происходит очистка корзины
         clear_basket_handler()
 
@@ -41,7 +41,7 @@ def register_orders_handler(idcustomer=None):
                                items=items,
                                basket=current_basket,
                                customers=customers,
-                               customer_id=customer_ID)
+                               customer_id=session.get('customer_ID'))
     # Если была нажата кнопка "Добавить товар в корзину"
     elif request.method == "POST":
         item_id = request.form['item_id']
@@ -53,7 +53,7 @@ def register_orders_handler(idcustomer=None):
             return "Товар не найден"
 
         # Добавление товара в сессию
-        add_to_basket(item[0])
+        add_to_basket(item[0], session.get('customer_ID'))
 
         print(session.get('basket'))
 
@@ -63,8 +63,23 @@ def register_orders_handler(idcustomer=None):
 # Функция описывает поведение при нажатии на кнопку "Купить"
 @user_basket.route('/buy')
 def buy_basket_handler():
+    # Генерация ключа для waybill
+    sql = provider.get('waybill_id_generator.sql')
+    # Получение последнего id из waybil_str или 1, если таблица пустая
+    res = work_with_db(sql)
+
+    if res:
+        waybill_id = res[0]["idwaybill_str"]
+    else:
+        waybill_id = 1
+
+    print(waybill_id)
+    # Время создания накладной
+    waybill_date = date.today().strftime("%Y-%m-%d")
+
     # Добавление товаров в корзину в БД
-    add_to_BD()
+    add_to_BD(waybill_id, waybill_date)
+
     clear_basket()
     return render_template('order_is_processed.html')
 
@@ -72,6 +87,7 @@ def buy_basket_handler():
 # Функция описывает поведение при нажатии на кнопку "Очистить корзину"
 @user_basket.route('/clear')
 def clear_basket_handler():
+    # Очистка корзины
     clear_basket()
     clear_basket_DB()
     return redirect('/basket')
