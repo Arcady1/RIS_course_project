@@ -1,3 +1,3 @@
 SELECT *
-FROM details_test
-where idtest_details = '$item_id'
+FROM detail
+where iddetail = '$item_id'

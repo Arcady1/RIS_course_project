@@ -14,7 +14,23 @@ provider = SQLProvider(os.path.join(os.path.dirname(__file__), 'sql'))
 # Функция добавления товара в корзину
 def add_to_basket(product):
     basket = session.get('basket', [])
-    basket.append(product)
+
+    # Ссылка на товар в корзине
+    product_link = None
+
+    # Проверка, есть ли товар уже в корзине
+    for basket_el in basket:
+        if basket_el["iddetail"] == product["iddetail"]:
+            product_link = basket_el
+            break;
+    if product_link is None:
+        # Добалвяем товар в сессию
+        product["count"] = 1
+        basket.append(product)
+    else:
+        product_link["count"] = product_link["count"] + 1
+
+    # basket.append(product)
     session['basket'] = basket
 
 

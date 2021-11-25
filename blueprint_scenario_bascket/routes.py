@@ -32,10 +32,13 @@ def register_orders_handler():
         sql = provider.get('current_item.sql', item_id=item_id)
         item = work_with_db(sql)
 
+        # Проверка, есть ли товар в БД
         if not item:
             return "Товар не найден"
         # Добалвяем товар в сессию
         add_to_basket(item[0])
+
+        print(session.get('basket'))
 
         return redirect('/basket')
 

@@ -1,6 +1,6 @@
 {% extends "bootstrap/base.html" %}
 {% block head %}
-<title>Корзина</title>
+<title>Накладная</title>
 {{ super() }}
 {% endblock %}
 {% block content %}
@@ -9,14 +9,14 @@
 
 <div class="wrapper" style="max-width: 700px; margin: 0 auto;">
     <div class="page-header" style="display: flex; justify-content: space-between;">
-        <h1>Корзина</h1>
+        <h1>Накладная</h1>
     </div>
     <div class="list-group">
         <a href="/" class="list-group-item">Главное меню</a>
     </div>
     <div style="display: flex; justify-content: space-between;">
-        {{ utils.render_item('Список товаров', items, show_form=True, buttons=False) }}
-        {{ utils.render_item('Корзина', basket, show_form=False, buttons=True) }}
+        {{ utils.render_item('Список товаров', items, count='stock', show_form=True, buttons=False) }}
+        {{ utils.render_item('Корзина', basket, count='basket', show_form=False, buttons=True) }}
     </div>
 </div>
 {% endblock %}
