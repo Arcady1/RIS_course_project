@@ -15,8 +15,20 @@
         <a href="/" class="list-group-item">Главное меню</a>
     </div>
     <div style="display: flex; justify-content: space-between;">
-        {{ utils.render_item('Список товаров', items, count='stock', show_form=True, buttons=False) }}
-        {{ utils.render_item('Корзина', basket, count='basket', show_form=False, buttons=True) }}
+        {{ utils.render_item(header='Список товаров',
+                            data=items,
+                            count='stock',
+                            customers=None,
+                            customer_id=customer_id,
+                            show_form=True,
+                            buttons=False) }}
+        {{ utils.render_item(header='',
+                            data=basket,
+                            count='basket',
+                            customers=customers,
+                            customer_id=customer_id,
+                            show_form=False,
+                            buttons=True) }}
     </div>
 </div>
 {% endblock %}

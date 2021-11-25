@@ -1,10 +1,30 @@
-{% macro render_item(header, data, count, show_form=False, buttons=False) %}
+{% macro render_item(header, data, count, customers, customer_id, show_form=False, buttons=False) %}
 
 <div class="panel panel-default" style="width: 48%;">
     <div class="panel-heading"
          style="display: flex; justify-content: space-between; align-items: center; min-height: 55px;">
         {{ header }}
         {% if buttons %}
+        {% if count %}
+        <div class="btn-group">
+            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false" style="padding-top: 5px; padding-bottom: 5px;">
+                {% if customer_id %}
+                Клиент ID: {{ customer_id }}
+                {% else %}
+                Клиент
+                {% endif %}
+            </button>
+            <div class="dropdown-menu" style="width: 220px; padding: 10px;">
+                {% for customer in customers %}
+                <a class="dropdown-item" href="{{ customer.idcustomer }}">{{ customer.name_ }} {{ customer.surname_ }}
+                    ({{ customer.city_
+                    }})</a>
+                <div class="dropdown-divider"></div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
         <div><a class="btn btn-default" href="{{ url_for('user_basket.clear_basket_handler') }}">Очистить</a><br></div>
         <div><a class="btn btn-default" href="{{ url_for('user_basket.buy_basket_handler') }}">Купить</a></div>
         {% endif %}

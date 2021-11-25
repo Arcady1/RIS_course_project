@@ -13,19 +13,35 @@ provider = SQLProvider(os.path.join(os.path.dirname(__file__), 'sql'))
 
 user_basket = Blueprint('user_basket', __name__, template_folder='templates')
 
+# ID выбранного пользователя
+customer_ID = None
+
 
 # Отрисовка каталога товаров и корзины
 @user_basket.route('/', methods=["GET", "POST"])
-def register_orders_handler():
+@user_basket.route('/<int:idcustomer>', methods=["GET", "POST"])
+def register_orders_handler(idcustomer=None):
+    # Инициализация ID выбранного пользователя и сохранение его глобально
+    if idcustomer:
+        global customer_ID
+        customer_ID = idcustomer
+        # При смене покупателя происходит очистка корзины
+        clear_basket_handler()
+
     # Если страница загрузилась, то отрисовываем её (список товаров и корзину)
     if request.method == "GET":
         current_basket = session.get('basket', [])
         sql = provider.get('basket_list.sql')
         items = work_with_db(sql)
 
+        sql_customers = provider.get('customers_list.sql')
+        customers = work_with_db(sql_customers)
+
         return render_template('basket_order_list.html',
                                items=items,
-                               basket=current_basket)
+                               basket=current_basket,
+                               customers=customers,
+                               customer_id=customer_ID)
     # Если была нажата кнопка "Добавить товар в корзину"
     elif request.method == "POST":
         item_id = request.form['item_id']
@@ -35,7 +51,8 @@ def register_orders_handler():
         # Проверка, есть ли товар в БД
         if not item:
             return "Товар не найден"
-        # Добалвяем товар в сессию
+
+        # Добавление товара в сессию
         add_to_basket(item[0])
 
         print(session.get('basket'))
