@@ -1,2 +1,2 @@
 SELECT *
-from details_test
+from detail

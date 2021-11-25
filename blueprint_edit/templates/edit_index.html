@@ -33,8 +33,10 @@
             {% endfor %}
             <td>
                 <form action="" method="post">
-                    <input type="hidden" name="item_id" value="{{ item.idtest_details }}">
-                    <button name="action" class="btn btn-danger">Удалить</button>
+                    <input type="hidden" name="item_id" value="{{ item.iddetail }}">
+                    <input type="hidden" name="item_count" value="{{ item.stock_count }}">
+                    <button name="action" class="btn btn-info" value="add">+</button>
+                    <button name="action" class="btn btn-danger" value="remove">-</button>
                 </form>
             </td>
         </tr>
