@@ -67,6 +67,18 @@ def add_to_BD(waybill_id, waybill_date):
                            detail_id=product["iddetail"])
         work_with_db(sql)
 
+        # Удаление товаров со склада
+        stock_reduce_details(basket)
+
+
+# Функция уменьшения количества товаров на складе после покупки
+def stock_reduce_details(basket):
+    for product in basket:
+        sql = provider.get('reduce_stock_details.sql',
+                           detail_id=product["iddetail"],
+                           new_count=product["stock_count"] - product["count"])
+        work_with_db(sql)
+
 
 # Функция очистки корзины
 def clear_basket():
