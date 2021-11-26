@@ -68,15 +68,17 @@ def add_to_BD(waybill_id, waybill_date):
         work_with_db(sql)
 
         # Удаление товаров со склада
-        stock_reduce_details(basket)
+        stock_reduce_details(basket, waybill_date)
 
 
-# Функция уменьшения количества товаров на складе после покупки
-def stock_reduce_details(basket):
+# Функция обновления информации о детали после покупки
+def stock_reduce_details(basket, waybill_date):
+    # Уменьшение количества деталей на складе и обновление даты изменения количества
     for product in basket:
         sql = provider.get('reduce_stock_details.sql',
                            detail_id=product["iddetail"],
-                           new_count=product["stock_count"] - product["count"])
+                           new_count=product["stock_count"] - product["count"],
+                           new_date=waybill_date)
         work_with_db(sql)
 
 
