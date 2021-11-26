@@ -18,7 +18,9 @@
       "auth",
       "queries",
       "query_1",
-      "query_1_result"
+      "query_1_result",
+      "basket",
+      "buy"
     ]
   },
   "senior_shop_assistant": {
@@ -28,7 +30,9 @@
       "auth",
       "queries",
       "query_2",
-      "query_2_result"
+      "query_2_result",
+      "basket",
+      "buy"
     ]
   },
   "unauthorized": {

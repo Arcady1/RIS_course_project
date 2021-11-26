@@ -4,6 +4,7 @@ from flask import session, request, current_app, render_template
 # Стандартные пакеты
 from functools import wraps
 
+
 def group_permission_validation(config: dict, sess: session) -> bool:
     """
     Функция проверяет, есть ли у пользователя доступ к endpoit-у
@@ -17,13 +18,23 @@ def group_permission_validation(config: dict, sess: session) -> bool:
     group = sess.get('group_name')
     # Куда пользователь хочет обратиться. При len(splited_endpoint) = 0 - index.html
     splited_endpoint = request.path.replace('/', " ").strip().split(" ")
-    target_app = "" if len(splited_endpoint) == 0 else splited_endpoint[-1]
+
+    # Если последний символ в url - число, значит это id клиента. Он должен игнорироваться
+    try:
+        last_point = int(splited_endpoint[-1])
+
+        if (type(last_point) == int) and (splited_endpoint[-2] == "basket"):
+            last_point = splited_endpoint[-2]
+    except:
+        last_point = splited_endpoint[-1]
+
+    target_app = "" if len(splited_endpoint) == 0 else last_point
 
     if (group in config.keys()) and (target_app in config[group]["url"]):
         return True
     return False
 
-# Проверяет, есть ли пользователь в сессии
+
 def login_permission_required(f):
     """
     Функция запускает проверку доступа пользователя к endpoint-у
@@ -34,9 +45,11 @@ def login_permission_required(f):
     Returns:
         wrapper: function.
     """
+
     @wraps(f)
     def wrapper(*args, **kwargs):
         if group_permission_validation(current_app.config['ACCESS_CONFIG'], session):
             return f(*args, **kwargs)
         return render_template('permission_denied.html')
+
     return wrapper

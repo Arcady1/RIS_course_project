@@ -34,7 +34,6 @@ def login_page():
         password = request.form.get('password', None)
         group_name = get_group_name_from_db(login, password)
         config = current_app.config['ACCESS_CONFIG']
-        print(login, password)
 
         if group_name in config.keys():
             session['group_name'] = group_name

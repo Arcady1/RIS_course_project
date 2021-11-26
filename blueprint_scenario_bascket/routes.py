@@ -7,6 +7,8 @@ from flask import Blueprint, render_template, session, request, redirect
 
 # Модули проекта
 from .utils import add_to_basket, clear_basket, add_to_BD, clear_user_id
+from access.access import login_permission_required
+from utils.session import get_session_group_name
 from database.database import work_with_db
 from database.sql_provider import SQLProvider
 
@@ -18,6 +20,7 @@ user_basket = Blueprint('user_basket', __name__, template_folder='templates')
 # Отрисовка каталога товаров и корзины
 @user_basket.route('/', methods=["GET", "POST"])
 @user_basket.route('/<int:idcustomer>', methods=["GET", "POST"])
+@login_permission_required
 def register_orders_handler(idcustomer=None):
     # Инициализация ID выбранного пользователя и сохранение его в сессии
     session.get('customer_ID', None)
@@ -41,7 +44,8 @@ def register_orders_handler(idcustomer=None):
                                items=items,
                                basket=current_basket,
                                customers=customers,
-                               customer_id=session.get('customer_ID'))
+                               customer_id=session.get('customer_ID'),
+                               user_type=get_session_group_name())
     # Если была нажата кнопка "Добавить товар в корзину"
     elif request.method == "POST":
         item_id = request.form['item_id']
@@ -59,6 +63,7 @@ def register_orders_handler(idcustomer=None):
 
 # Функция описывает поведение при нажатии на кнопку "Купить"
 @user_basket.route('/buy')
+@login_permission_required
 def buy_basket_handler():
     # Генерация ключа для waybill
     sql = provider.get('waybill_id_generator.sql')
