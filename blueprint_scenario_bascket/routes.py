@@ -6,7 +6,7 @@ import os
 from flask import Blueprint, render_template, session, request, redirect
 
 # Модули проекта
-from .utils import add_to_basket, clear_basket, add_to_BD, clear_basket_DB
+from .utils import add_to_basket, clear_basket, add_to_BD, clear_user_id
 from database.database import work_with_db
 from database.sql_provider import SQLProvider
 
@@ -77,13 +77,13 @@ def buy_basket_handler():
     add_to_BD(waybill_id, waybill_date)
 
     clear_basket()
+    clear_user_id()
+
     return render_template('order_is_processed.html')
 
 
 # Функция описывает поведение при нажатии на кнопку "Очистить корзину"
 @user_basket.route('/clear')
 def clear_basket_handler():
-    # Очистка корзины
     clear_basket()
-    clear_basket_DB()
     return redirect('/basket')

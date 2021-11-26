@@ -39,17 +39,6 @@ def add_to_basket(product, customer_id):
     session['basket'] = basket
 
 
-# Функция очистки корзины
-def clear_basket():
-    if 'basket' in session:
-        session.pop('basket')
-
-# Функция удаления выбранного пользователя из сессии
-def clear_user_id():
-    if 'customer_ID' in session:
-        session.pop('customer_ID')
-
-
 # Функция добавления товара в коризу в БД => нажата кнопка "Купить"
 def add_to_BD(waybill_id, waybill_date):
     # Собранная корзина
@@ -58,15 +47,9 @@ def add_to_BD(waybill_id, waybill_date):
     # Общая сумма заказа
     total_cost = 0
 
+    # Подсчет общей стоимости
     for product in basket:
         total_cost += int(product["count"]) * int(product["detail_price"])
-
-        # Внесение данных в waybill_str
-        sql = provider.get('add_to_waybill_str.sql',
-                           waybill_id=waybill_id,
-                           details_count=product["count"],
-                           detail_id=product["iddetail"])
-        work_with_db(sql)
 
     # Внесение данных в waybill
     sql = provider.get('add_to_waybill.sql',
@@ -76,11 +59,22 @@ def add_to_BD(waybill_id, waybill_date):
                        customer_id=session.get('customer_ID'))
     work_with_db(sql)
 
-    # Очистка сессии
-    clear_basket()
-    clear_user_id()
+    # Внесение данных в waybill_str
+    for product in basket:
+        sql = provider.get('add_to_waybill_str.sql',
+                           waybill_id=waybill_id,
+                           details_count=product["count"],
+                           detail_id=product["iddetail"])
+        work_with_db(sql)
 
 
-def clear_basket_DB():
-    sql = provider.get('clear_basket.sql')
-    work_with_db(sql)
+# Функция очистки корзины
+def clear_basket():
+    if 'basket' in session:
+        session.pop('basket')
+
+
+# Функция удаления выбранного пользователя из сессии
+def clear_user_id():
+    if 'customer_ID' in session:
+        session.pop('customer_ID')
