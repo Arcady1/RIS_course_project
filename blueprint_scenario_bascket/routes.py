@@ -54,9 +54,6 @@ def register_orders_handler(idcustomer=None):
 
         # Добавление товара в сессию
         add_to_basket(item[0], session.get('customer_ID'))
-
-        print(session.get('basket'))
-
         return redirect('/basket')
 
 
@@ -73,7 +70,6 @@ def buy_basket_handler():
     else:
         waybill_id = 1
 
-    print(waybill_id)
     # Время создания накладной
     waybill_date = date.today().strftime("%Y-%m-%d")
 

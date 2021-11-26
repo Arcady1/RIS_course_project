@@ -26,7 +26,12 @@
         </div>
         {% endif %}
         <div><a class="btn btn-default" href="{{ url_for('user_basket.clear_basket_handler') }}">Очистить</a><br></div>
+        <!-- Кнопка "Купить" появляется, если клиент выбран и корзина не пустая -->
+        {% if customer_id and count == 'basket' and data %}
         <div><a class="btn btn-default" href="{{ url_for('user_basket.buy_basket_handler') }}">Купить</a></div>
+        {% else %}
+        <div style="visibility: hidden;"><a class="btn btn-default" href="">Купить</a></div>
+        {% endif %}
         {% endif %}
     </div>
     <div class="panel-body">

@@ -22,15 +22,18 @@ def add_to_basket(product, customer_id):
 
     # Проверка, есть ли товар уже в корзине
     for basket_el in basket:
+        # Если товар уже в корзине, то сохраняем ссылку на него
         if basket_el["iddetail"] == product["iddetail"]:
             product_link = basket_el
             break;
+    # Еслм товара нет в корзине, то добавляем
     if product_link is None:
         # Добалвяем товар в сессию
         product["count"] = 1
         basket.append(product)
     else:
-        product_link["count"] = product_link["count"] + 1
+        # Добавление детали в корзину, но не больше, чем на складе
+        product_link["count"] = min(product_link["count"] + 1, product_link["stock_count"])
 
     # basket.append(product)
     session['basket'] = basket
@@ -41,8 +44,13 @@ def clear_basket():
     if 'basket' in session:
         session.pop('basket')
 
+# Функция удаления выбранного пользователя из сессии
+def clear_user_id():
+    if 'customer_ID' in session:
+        session.pop('customer_ID')
 
-# Функция добавления товара в коризу в БД
+
+# Функция добавления товара в коризу в БД => нажата кнопка "Купить"
 def add_to_BD(waybill_id, waybill_date):
     # Собранная корзина
     basket = session.get('basket', [])
@@ -68,8 +76,9 @@ def add_to_BD(waybill_id, waybill_date):
                        customer_id=session.get('customer_ID'))
     work_with_db(sql)
 
-    # Функция очистки корзины в БД
+    # Очистка сессии
     clear_basket()
+    clear_user_id()
 
 
 def clear_basket_DB():
