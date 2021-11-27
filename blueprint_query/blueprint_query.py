@@ -45,7 +45,7 @@ def query_1_result():
         if not result:
             result = 'Not found'
     return render_template('query_results.html', user_type=get_session_group_name(), title=title, result=result,
-                           col_titles=["ID покупателя", "Дата заключения контракта", "Имя", "Город"])
+                           col_titles=["ID покупателя", "Дата заключения контракта", "Имя", "Фамилия", "Город"])
 
 
 # Обработчик запроса 2 GET
