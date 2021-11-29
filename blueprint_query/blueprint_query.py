@@ -38,7 +38,7 @@ def query_1_result():
 
     if request.method == "POST":
         data = request.form.get('data')
-        sql = provider.get('query_1.sql', city=data)
+        sql = provider.get('user_info.sql', city=data)
         result = work_with_db(sql)
         title += f" {data if data else '-'}"
 

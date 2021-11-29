@@ -56,7 +56,8 @@ def add_to_BD(waybill_id, waybill_date):
                        waybill_date=waybill_date,
                        waybill_id=waybill_id,
                        full_price=total_cost,
-                       customer_id=session.get('customer_ID'))
+                       customer_id=session.get('customer_ID'),
+                       user_id=session.get("user_id"))
     work_with_db(sql)
 
     # Внесение данных в waybill_str

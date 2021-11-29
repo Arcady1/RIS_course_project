@@ -16,11 +16,15 @@ auth_app = Blueprint('auth_app', __name__, template_folder='templates')
 
 # Функция возвращает group_name пользователя
 def get_group_name_from_db(login, password):
-    sql = provider.get('query_1.sql', user_name=login, user_password=password)
+    sql = provider.get('user_info.sql', user_name=login, user_password=password)
     result = work_with_db(sql)
 
     if not result:
         return None
+
+    # Сохранение id пользователя, который вошел в систему
+    session["user_id"] = result[0]["idusers"]
+
     return result[0]['user_group']
 
 
