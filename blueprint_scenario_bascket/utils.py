@@ -11,8 +11,14 @@ from database.sql_provider import SQLProvider
 provider = SQLProvider(os.path.join(os.path.dirname(__file__), 'sql'))
 
 
-# Функция добавления товара в корзину
 def add_to_basket(product, customer_id):
+    """
+    Функция добавления товара в корзину
+
+    Args:
+        product: dict. Словарь, который содержит информацию о товаре
+        customer_id: int. ID покупателя
+    """
     basket = session.get('basket', [])
 
     # Добавление id пользователя к каждому выбранному товару
@@ -39,8 +45,14 @@ def add_to_basket(product, customer_id):
     session['basket'] = basket
 
 
-# Функция добавления товара в коризу в БД => нажата кнопка "Купить"
 def add_to_BD(waybill_id, waybill_date):
+    """
+    Функция добавления выбранных товаров в накладную в БД (при нажатии на кнопку "Купить")
+
+    Args:
+        waybill_id: int. ID накладной, в которой хранятся строки - купленные товары
+        waybill_date: date. Дата формирования накладной (нажатия на кнопку "Купить")
+    """
     # Собранная корзина
     basket = session.get('basket', [])
 
@@ -72,8 +84,15 @@ def add_to_BD(waybill_id, waybill_date):
         stock_reduce_details(basket, waybill_date)
 
 
-# Функция обновления информации о детали после покупки
 def stock_reduce_details(basket, waybill_date):
+    """
+    Функция обновления информации о товаре после покупки
+
+    Args:
+        basket: List[dict]. Содержание собранной корзины
+        waybill_date: date. Дата формирования накладной
+    """
+
     # Уменьшение количества деталей на складе и обновление даты изменения количества
     for product in basket:
         sql = provider.get('reduce_stock_details.sql',
