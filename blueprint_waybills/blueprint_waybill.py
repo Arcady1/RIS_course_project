@@ -5,7 +5,8 @@ import os
 from flask import Blueprint, render_template, session, request, redirect, url_for
 
 # Модули проекта
-# from access.access import login_permission_required
+# TODO from access.access import login_permission_required
+from .utils import get_details_info_from_waybill
 from utils.session import get_session_group_name
 from database.database import work_with_db
 from database.sql_provider import SQLProvider
@@ -38,13 +39,22 @@ def customer_waybills(id=None):
     sql = provider.get('get_customer_waybills.sql', customer_id=id)
     result = work_with_db(sql)
 
-    # Замена значения user_group на понятное слово
+    # Подробная информация о каждом заказе клиента
+    full_info_result = []
+
     for res in result:
+        # Замена значения user_group на должность
         if res['user_group'] is not None:
             res['user_group'] = get_session_group_name(user_type=res['user_group'])
 
+        # Получение подробностей о каждом заказе клиента
+        full_info_result.append(get_details_info_from_waybill(res["idwaybill"]))
+
+    print(result)
+    print(full_info_result)
     return render_template('customer_waybills.html',
                            result=result,
+                           full_info_result=full_info_result,
                            id=id,
                            col_titles=["ID накладной", "Дата формирования", "Полная стоимость", "Оформил", "Статус"],
                            col_sizes=["75", "210", "110", "100", "200"])

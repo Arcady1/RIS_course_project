@@ -26,14 +26,14 @@
             </tr>
             </thead>
         </table>
-        {% for item in result %}
+        {% for idx in range(result|length) %}
         <div class="btn-group" role="group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false" style="margin: 0; padding: 0;">
                 <table class="table" style="margin-bottom: 0;">
                     <tbody>
                     <tr>
-                        {% for val in item.values() %}
+                        {% for val in result[idx].values() %}
                         <td class="text-center" style="width: 100px;">
                             {% if val is none %}
                             <span>-</span>
@@ -47,39 +47,13 @@
                 </table>
             </button>
             <ul class="dropdown-menu" style="position: static; float: none; margin-top: 0;">
-                <li><a href="#">Dropdown link</a></li>
-                <li><a href="#">Dropdown link</a></li>
+                {% for info_el in full_info_result[idx] %}
+                <li>{{ info_el["detail_type"] }}</li>
+                {% endfor %}
             </ul>
         </div>
         {% endfor %}
     </div>
     {% endif %}
-
-
-    <!--    <div class="btn-group-vertical" role="group" style="width: 100%;">-->
-    <!--        <div class="btn-group" role="group">-->
-    <!--            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"-->
-    <!--                    aria-expanded="false">-->
-    <!--                Dropdown-->
-    <!--                <span class="caret"></span>-->
-    <!--            </button>-->
-    <!--            <ul class="dropdown-menu" style="position: static; float: none;">-->
-    <!--                <li><a href="#">Dropdown link</a></li>-->
-    <!--                <li><a href="#">Dropdown link</a></li>-->
-    <!--            </ul>-->
-    <!--        </div>-->
-
-    <!--        <div class="btn-group" role="group">-->
-    <!--            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"-->
-    <!--                    aria-expanded="false">-->
-    <!--                Dropdown-->
-    <!--                <span class="caret"></span>-->
-    <!--            </button>-->
-    <!--            <ul class="dropdown-menu" style="position: static; float: none;">-->
-    <!--                <li><a href="#">Dropdown link</a></li>-->
-    <!--                <li><a href="#">Dropdown link</a></li>-->
-    <!--            </ul>-->
-    <!--        </div>-->
-    <!--    </div>-->
 </div>
 {% endblock %}
