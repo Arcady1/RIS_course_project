@@ -19,11 +19,11 @@ def group_permission_validation(config: dict, sess: session) -> bool:
     # Куда пользователь хочет обратиться. При len(splited_endpoint) = 0 - index.html
     splited_endpoint = request.path.replace('/', " ").strip().split(" ")
 
-    # Если последний символ в url - число, значит это id клиента. Он должен игнорироваться
+    # Если последний символ в url - число, то оно не учитывается как endpoint
     try:
         last_point = int(splited_endpoint[-1])
 
-        if (type(last_point) == int) and (splited_endpoint[-2] == "basket"):
+        if type(last_point) == int:
             last_point = splited_endpoint[-2]
     except:
         last_point = splited_endpoint[-1]

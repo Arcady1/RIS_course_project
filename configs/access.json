@@ -8,7 +8,8 @@
       "query_1",
       "query_1_result",
       "query_2",
-      "query_2_result"
+      "query_2_result",
+      "all-waybills"
     ]
   },
   "shop_assistant": {
@@ -20,7 +21,8 @@
       "query_1",
       "query_1_result",
       "basket",
-      "buy"
+      "buy",
+      "all-waybills"
     ]
   },
   "senior_shop_assistant": {
@@ -32,7 +34,8 @@
       "query_2",
       "query_2_result",
       "basket",
-      "buy"
+      "buy",
+      "all-waybills"
     ]
   },
   "unauthorized": {

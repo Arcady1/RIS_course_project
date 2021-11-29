@@ -46,9 +46,34 @@
                     </tbody>
                 </table>
             </button>
-            <ul class="dropdown-menu" style="position: static; float: none; margin-top: 0;">
+            <ul class="dropdown-menu" style="position: static; float: none; margin-top: 0; padding-top: 0;">
+                <table class="table table-hover" style="margin-bottom: -1px;">
+                    <thead class="thead-dark">
+                    <tr>
+                        {% for col_title in sub_col_titles %}
+                        <th scope="col" style="width: 100px;" class="text-center">{{ col_title }}</th>
+                        {% endfor %}
+                    </tr>
+                    </thead>
+                </table>
                 {% for info_el in full_info_result[idx] %}
-                <li>{{ info_el["detail_type"] }}</li>
+                <li>
+                    <table class="table" style="margin-bottom: 0;">
+                        <tbody>
+                        <tr>
+                            {% for val in info_el.values() %}
+                            <td class="text-center" style="width: 100px;">
+                                {% if val is none %}
+                                <span>-</span>
+                                {% else %}
+                                {{ val }}
+                                {% endif %}
+                            </td>
+                            {% endfor %}
+                        </tr>
+                        </tbody>
+                    </table>
+                </li>
                 {% endfor %}
             </ul>
         </div>

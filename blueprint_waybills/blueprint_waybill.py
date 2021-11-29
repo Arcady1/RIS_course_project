@@ -5,7 +5,7 @@ import os
 from flask import Blueprint, render_template, session, request, redirect, url_for
 
 # Модули проекта
-# TODO from access.access import login_permission_required
+from access.access import login_permission_required
 from .utils import get_details_info_from_waybill
 from utils.session import get_session_group_name
 from database.database import work_with_db
@@ -18,6 +18,7 @@ user_waybill = Blueprint('user_waybill', __name__, template_folder='templates')
 
 # Отрисовка каталога товаров и корзины
 @user_waybill.route('/', methods=["GET", "POST"])
+@login_permission_required
 def waybill_index():
     if request.method == "GET":
         sql = provider.get('get_all_customers.sql')
@@ -33,6 +34,7 @@ def waybill_index():
 
 
 @user_waybill.route('/<int:id>', methods=["GET", "POST"])
+@login_permission_required
 def customer_waybills(id=None):
     if id is None:
         return redirect(url_for('user_waybill.waybill_index'))
@@ -50,11 +52,9 @@ def customer_waybills(id=None):
         # Получение подробностей о каждом заказе клиента
         full_info_result.append(get_details_info_from_waybill(res["idwaybill"]))
 
-    print(result)
-    print(full_info_result)
     return render_template('customer_waybills.html',
                            result=result,
                            full_info_result=full_info_result,
                            id=id,
-                           col_titles=["ID накладной", "Дата формирования", "Полная стоимость", "Оформил", "Статус"],
-                           col_sizes=["75", "210", "110", "100", "200"])
+                           col_titles=["ID накладной", "Дата формирования", "Общая стоимость", "Оформил", "Статус"],
+                           sub_col_titles=["Тип", "Материал", "Вес (г)", "Цена", "Кол-во"])
