@@ -1,0 +1,46 @@
+{% extends "bootstrap/base.html" %}
+{% block head %}
+<title>Все клиенты</title>
+{{ super() }}
+{% endblock %}
+{% block content %}
+
+<div class="wrapper" style="max-width: 700px; margin: 0 auto;">
+    <div class="page-header" style="display: flex; justify-content: space-between;">
+        <h1>Все клиенты</h1>
+        <h1><small>{{ user_type }}</small></h1>
+    </div>
+    <div class="list-group">
+        <a href="/" class="list-group-item">Назад</a>
+        <a href="/" class="list-group-item">Главное меню</a>
+    </div>
+    {% if result is string %}
+    <div class="alert alert-warning" role="alert">Нет результатов</div>
+    {% else %}
+    <table class="table table-hover">
+        <thead class="thead-dark">
+        <tr>
+            {% for col_title in col_titles %}
+            <th scope="col">{{ col_title }}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in result %}
+        <tr>
+            {% for val in item.values() %}
+            <td>{{ val }}</td>
+            {% endfor %}
+            <td>
+                <form action="" method="post">
+                    <input type="hidden" name="user_id" value="{{ item.idcustomer }}">
+                    <button name="action" class="btn btn-info">Накладные</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</div>
+{% endblock %}

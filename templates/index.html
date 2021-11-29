@@ -12,7 +12,8 @@
     <div class="list-group">
         <a href="{{ url_for('user_app.user_index') }}" class="list-group-item">Работа с запросами</a>
         <a href="{{ url_for('user_edit.edit_index') }}" class="list-group-item">Редактировать товар</a>
-        <a href="{{ url_for('user_basket.register_orders_handler') }}" class="list-group-item">Накладная</a>
+        <a href="{{ url_for('user_basket.register_orders_handler') }}" class="list-group-item">Создать накладную</a>
+        <a href="{{ url_for('user_waybill.waybill_index') }}" class="list-group-item">Найти накладную</a>
         <a href="{{ url_for('auth_app.login_page') }}" class="list-group-item">Авторизация</a>
         <a href="{{ url_for('index_exit') }}" class="list-group-item">Выход</a>
     </div>

@@ -10,6 +10,7 @@ from blueprint_query.blueprint_query import user_app
 from blueprint_scenario_auth.scenario_auth import auth_app
 from blueprint_scenario_bascket.routes import user_basket
 from blueprint_edit.blueprint_edit import user_edit
+from blueprint_waybills.blueprint_waybill import user_waybill
 from utils.session import get_session_group_name
 
 app = Flask(__name__)
@@ -17,6 +18,7 @@ app.register_blueprint(user_app, url_prefix='/user')
 app.register_blueprint(auth_app, url_prefix='/auth')
 app.register_blueprint(user_basket, url_prefix='/basket')
 app.register_blueprint(user_edit, url_prefix='/edit')
+app.register_blueprint(user_waybill, url_prefix='/all-waybills')
 
 # Конфигурации Flask
 app.config['SECRET_KEY'] = 'super secret key'
