@@ -7,7 +7,7 @@
 
 <div class="wrapper" style="max-width: 700px; margin: 0 auto;">
     <div class="page-header" style="display: flex; justify-content: center;">
-        <h1>Накладные клиента (ID: {{ id }})</h1>
+        <h1>Накладные клиента ID: {{ id }}</h1>
     </div>
     <div class="list-group">
         <a href="{{ url_for('user_waybill.waybill_index') }}" class="list-group-item">Назад</a>
@@ -16,30 +16,70 @@
     {% if not result|length %}
     <div class="alert alert-warning" role="alert">Нет результатов</div>
     {% else %}
-    <table class="table table-hover">
-        <thead class="thead-dark">
-        <tr>
-            {% for col_title in col_titles %}
-            <th scope="col">{{ col_title }}</th>
-            {% endfor %}
-        </tr>
-        </thead>
-        <tbody>
+    <div class="btn-group-vertical" role="group" style="width: 100%;">
+        <table class="table table-hover" style="margin-bottom: -1px;">
+            <thead class="thead-dark">
+            <tr>
+                {% for col_title in col_titles %}
+                <th scope="col" style="width: 90px;">{{ col_title }}</th>
+                {% endfor %}
+            </tr>
+            </thead>
+        </table>
         {% for item in result %}
-        <tr>
-            {% for val in item.values() %}
-            <td>
-                {% if val is none %}
-                <span>-</span>
-                {% else %}
-                {{ val }}
-                {% endif %}
-            </td>
-            {% endfor %}
-        </tr>
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false" style="margin: 0; padding: 0;">
+                <table class="table" style="margin-bottom: 0;">
+                    <tbody>
+                    <tr>
+                        {% for val in item.values() %}
+                        <td class="text-center" style="width: 100px;">
+                            {% if val is none %}
+                            <span>-</span>
+                            {% else %}
+                            {{ val }}
+                            {% endif %}
+                        </td>
+                        {% endfor %}
+                    </tr>
+                    </tbody>
+                </table>
+            </button>
+            <ul class="dropdown-menu" style="position: static; float: none; margin-top: 0;">
+                <li><a href="#">Dropdown link</a></li>
+                <li><a href="#">Dropdown link</a></li>
+            </ul>
+        </div>
         {% endfor %}
-        </tbody>
-    </table>
+    </div>
     {% endif %}
+
+
+    <!--    <div class="btn-group-vertical" role="group" style="width: 100%;">-->
+    <!--        <div class="btn-group" role="group">-->
+    <!--            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"-->
+    <!--                    aria-expanded="false">-->
+    <!--                Dropdown-->
+    <!--                <span class="caret"></span>-->
+    <!--            </button>-->
+    <!--            <ul class="dropdown-menu" style="position: static; float: none;">-->
+    <!--                <li><a href="#">Dropdown link</a></li>-->
+    <!--                <li><a href="#">Dropdown link</a></li>-->
+    <!--            </ul>-->
+    <!--        </div>-->
+
+    <!--        <div class="btn-group" role="group">-->
+    <!--            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"-->
+    <!--                    aria-expanded="false">-->
+    <!--                Dropdown-->
+    <!--                <span class="caret"></span>-->
+    <!--            </button>-->
+    <!--            <ul class="dropdown-menu" style="position: static; float: none;">-->
+    <!--                <li><a href="#">Dropdown link</a></li>-->
+    <!--                <li><a href="#">Dropdown link</a></li>-->
+    <!--            </ul>-->
+    <!--        </div>-->
+    <!--    </div>-->
 </div>
 {% endblock %}

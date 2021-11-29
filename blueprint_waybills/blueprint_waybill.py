@@ -46,4 +46,5 @@ def customer_waybills(id=None):
     return render_template('customer_waybills.html',
                            result=result,
                            id=id,
-                           col_titles=["ID накладной", "Дата формирования", "Полная стоимость", "Оформил", "Статус"])
+                           col_titles=["ID накладной", "Дата формирования", "Полная стоимость", "Оформил", "Статус"],
+                           col_sizes=["75", "210", "110", "100", "200"])
