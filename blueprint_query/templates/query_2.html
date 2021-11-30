@@ -14,9 +14,14 @@
     </div>
     <form action="{{ url_for('user_app.query_2_result') }}" method="post">
         <div class="form-group">
-            <label for="exampleInputEmail1">Укажите вес детали</label>
+            <label for="exampleInputEmail1">Укажите вес детали (г)</label>
             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                   placeholder="Вес" name="data">
+                   placeholder="Вес" name="data" required>
+            {% if not is_valid %}
+            <div class="invalid-feedback" style="color: red;">
+                Введите корректные данные
+            </div>
+            {% endif %}
         </div>
         <button type="submit" class="btn btn-primary">Получить данные</button>
     </form>

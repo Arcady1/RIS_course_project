@@ -7,6 +7,7 @@ from flask import Blueprint, render_template, request
 # Модули проекта
 from access.access import login_permission_required
 from utils.session import get_session_group_name
+from utils.form_validator import is_form_valid
 from database.database import work_with_db
 from database.sql_provider import SQLProvider
 
@@ -26,24 +27,29 @@ def user_index():
 @user_app.route('/queries/query_1')
 @login_permission_required
 def query_1():
-    return render_template('query_1.html', user_type=get_session_group_name())
+    return render_template('query_1.html', is_valid=True)
 
 
 # Результат запроса 1
 @user_app.route('/queries/query_1/query_1_result', methods=["POST"])
 @login_permission_required
 def query_1_result():
-    result = ''
     title = "Список покупателей из города"
 
     if request.method == "POST":
         data = request.form.get('data')
-        sql = provider.get('user_info.sql', city=data)
-        result = work_with_db(sql)
-        title += f" {data if data else '-'}"
 
-        if not result:
-            result = 'Not found'
+        # Валидация формы
+        if is_form_valid(data=data, expected_data_type=str):
+            sql = provider.get('query_1.sql', city=data)
+            result = work_with_db(sql)
+            title += f" {data if data else '-'}"
+
+            if not result:
+                result = 'Not found'
+        else:
+            return render_template('query_1.html', is_valid=False)
+
     return render_template('query_results.html', user_type=get_session_group_name(), title=title, result=result,
                            col_titles=["ID покупателя", "Дата заключения контракта", "Имя", "Фамилия", "Город"])
 
@@ -52,7 +58,7 @@ def query_1_result():
 @user_app.route('/queries/query_2')
 @login_permission_required
 def query_2():
-    return render_template('query_2.html')
+    return render_template('query_2.html', is_valid=True)
 
 
 # Результат запроса 2
@@ -64,12 +70,17 @@ def query_2_result():
 
     if request.method == "POST":
         data = request.form.get('data')
-        sql = provider.get('query_2.sql', weight=data)
-        result = work_with_db(sql)
-        title += f" {data if data else 0}г"
 
-        if not result:
-            result = 'Not found'
+        # Валидация формы
+        if is_form_valid(data=data, expected_data_type=int, positive_num=True):
+            sql = provider.get('query_2.sql', weight=data)
+            result = work_with_db(sql)
+            title += f" {data if data else 0}г"
+
+            if not result:
+                result = 'Not found'
+        else:
+            return render_template('query_2.html', is_valid=False)
     return render_template('query_results.html', user_type=get_session_group_name(), title=title, result=result,
                            col_titles=["ID детали",
                                        "Название детали",

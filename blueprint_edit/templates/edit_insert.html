@@ -13,27 +13,63 @@
         <a href="/" class="list-group-item">Главное меню</a>
     </div>
     <form action="" method="post">
-        <div class="form-group">
-            <label for="detailName">Название детали</label>
-            <input type="text" class="form-control" id="detailName" placeholder="Название" name="item_name">
+        <div class="form-group" style="margin-top: 15px; margin-bottom: 0;">
+            <label for="detailName">Название товара</label>
+            <input type="text" class="form-control" id="detailName" placeholder="Название" name="item_name" required>
         </div>
-        <div class="form-group">
-            <label for="detailMaterial">Материал детали</label>
-            <input type="text" class="form-control" id="detailMaterial" placeholder="Материал" name="item_material">
+        {% if not is_valid[0] %}
+        <div class="invalid-feedback" style="color: red;">
+            Введите корректные данные
         </div>
-        <div class="form-group">
-            <label for="detailWeight">Вес детали</label>
-            <input type="text" class="form-control" id="detailWeight" placeholder="Вес" name="item_weight">
+        {% endif %}
+        <div class="form-group" style="margin-top: 15px; margin-bottom: 0;">
+            <label for="detailMaterial">Материал товара</label>
+            <input type="text" class="form-control" id="detailMaterial" placeholder="Материал" name="item_material"
+                   required>
         </div>
-        <div class="form-group">
-            <label for="detailPrice">Цена детали</label>
-            <input type="text" class="form-control" id="detailPrice" placeholder="Цена" name="item_price">
+        {% if not is_valid[1] %}
+        <div class="invalid-feedback" style="color: red;">
+            Введите корректные данные
         </div>
-        <div class="form-group">
-            <label for="detailCount">Количество деталей</label>
-            <input type="text" class="form-control" id="detailCount" placeholder="Количество" name="item_count">
+        {% endif %}
+        <div class="form-group" style="margin-top: 15px; margin-bottom: 0;">
+            <label for="detailWeight">Вес товара (г)</label>
+            <input type="text" class="form-control" id="detailWeight" placeholder="Вес" name="item_weight" required>
         </div>
-        <button type="submit" class="btn btn-primary" name="insert">Добавить</button>
+        {% if not is_valid[2] %}
+        <div class="invalid-feedback" style="color: red;">
+            Введите корректные данные
+        </div>
+        {% endif %}
+        <div class="form-group" style="margin-top: 15px; margin-bottom: 0;">
+            <label for="detailPrice">Цена товара</label>
+            <input type="text" class="form-control" id="detailPrice" placeholder="Цена" name="item_price" required>
+        </div>
+        {% if not is_valid[3] %}
+        <div class="invalid-feedback" style="color: red;">
+            Введите корректные данные
+        </div>
+        {% endif %}
+        <div class="form-group" style="margin-top: 15px; margin-bottom: 0;">
+            <label for="detailCount">Количество товара</label>
+            <input type="text" class="form-control" id="detailCount" placeholder="Количество" name="item_count"
+                   required>
+        </div>
+        {% if not is_valid[4] %}
+        <div class="invalid-feedback" style="color: red;">
+            Введите корректные данные
+        </div>
+        {% endif %}
+        <button type="submit" class="btn btn-primary" name="insert" style="margin-top: 15px;">Добавить</button>
     </form>
+    <div style="margin-top: 10px;">
+        {% if show_res %}
+        {% if valid_status %}
+        <div class="alert alert-success" role="alert">Товар успешно добавлен</div>
+        {% else %}
+        <div class="alert alert-danger" role="alert">Введены некорректные данные</div>
+        {% endif %}
+        {% endif %}
+    </div>
 </div>
 {% endblock %}
