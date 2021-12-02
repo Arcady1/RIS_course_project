@@ -28,6 +28,7 @@ def register_orders_handler(idcustomer=None):
     # Если ID пользователя поменялся, то перезаписываем его
     if idcustomer:
         session['customer_ID'] = idcustomer
+
         # При смене покупателя происходит очистка корзины
         clear_basket_handler()
 

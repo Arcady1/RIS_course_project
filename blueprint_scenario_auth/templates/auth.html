@@ -27,9 +27,9 @@
         <button type="submit" class="btn btn-primary">Войти</button>
     </form>
     <div style="margin-top: 10px;">
-        {% if auth_result == "OK" %}
+        {% if auth_result == True %}
         <div class="alert alert-success" role="alert">Вы вошли в систему</div>
-        {% elif auth_result == "NO" %}
+        {% elif auth_result == False %}
         <div class="alert alert-danger" role="alert">Неверный логин или пароль</div>
         {% endif %}
     </div>

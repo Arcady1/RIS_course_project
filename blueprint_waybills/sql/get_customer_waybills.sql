@@ -2,3 +2,4 @@ SELECT waybill.idwaybill, waybill.waybill_date, waybill.full_price, users.user_n
 FROM waybill LEFT JOIN users
 ON waybill.user_id = users.idusers
 WHERE waybill.customer_id = "$customer_id"
+ORDER BY waybill.waybill_date DESC

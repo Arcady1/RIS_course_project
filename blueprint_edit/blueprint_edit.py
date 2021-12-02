@@ -6,6 +6,7 @@ from datetime import date
 from flask import Blueprint, render_template, request
 
 # Модули проекта
+from access.access import login_permission_required
 from database.database import work_with_db
 from database.sql_provider import SQLProvider
 from utils.form_validator import is_form_valid
@@ -17,6 +18,7 @@ user_edit = Blueprint('user_edit', __name__, template_folder='templates')
 
 # Отрисовка всех деталей и их удаление
 @user_edit.route('/', methods=["GET", "POST"])
+@login_permission_required
 def edit_index():
     result = ''
 
@@ -53,6 +55,7 @@ def edit_index():
 
 # Страница добавления деталей
 @user_edit.route('/insert', methods=["GET", "POST"])
+@login_permission_required
 def edit_insert():
     if request.method == "GET":
         return render_template('edit_insert.html', is_valid=[True] * 5, show_res=False)

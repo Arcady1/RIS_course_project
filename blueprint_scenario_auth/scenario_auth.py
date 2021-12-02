@@ -14,20 +14,6 @@ provider = SQLProvider(os.path.join(os.path.dirname(__file__), 'sql'))
 auth_app = Blueprint('auth_app', __name__, template_folder='templates')
 
 
-# Функция возвращает group_name пользователя
-def get_group_name_from_db(login, password):
-    sql = provider.get('user_info.sql', user_name=login, user_password=password)
-    result = work_with_db(sql)
-
-    if not result:
-        return None
-
-    # Сохранение id пользователя, который вошел в систему
-    session["user_id"] = result[0]["idusers"]
-
-    return result[0]['user_group']
-
-
 # Сценарий авторизации пользователя
 @auth_app.route('/', methods=['GET', 'POST'])
 def login_page():
@@ -41,7 +27,21 @@ def login_page():
 
         if group_name in config.keys():
             session['group_name'] = group_name
-            auth_result = "OK"
+            auth_result = True
         else:
-            auth_result = "NO"
+            auth_result = False
     return render_template('auth.html', auth_result=auth_result, user_type=get_session_group_name())
+
+
+# Функция возвращает group_name пользователя
+def get_group_name_from_db(login, password):
+    sql = provider.get('user_info.sql', user_name=login, user_password=password)
+    result = work_with_db(sql)
+
+    if not result:
+        return None
+
+    # Сохранение id пользователя, который вошел в систему
+    session["user_id"] = result[0]["idusers"]
+
+    return result[0]['user_group']

@@ -8,7 +8,10 @@
       "query_1",
       "query_1_result",
       "query_2",
-      "query_2_result"
+      "query_2_result",
+      "edit",
+      "insert",
+      "all-waybills"
     ]
   },
   "shop_assistant": {
@@ -19,17 +22,21 @@
       "queries",
       "query_1",
       "query_1_result",
+      "query_2",
+      "query_2_result",
       "basket",
       "buy",
       "all-waybills"
     ]
   },
   "senior_shop_assistant": {
-    "name": "Старший менеджер",
+    "name": "Ст. менеджер",
     "url": [
       "",
       "auth",
       "queries",
+      "query_1",
+      "query_1_result",
       "query_2",
       "query_2_result",
       "basket",

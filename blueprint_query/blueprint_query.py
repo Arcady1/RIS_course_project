@@ -50,8 +50,12 @@ def query_1_result():
         else:
             return render_template('query_1.html', is_valid=False)
 
-    return render_template('query_results.html', user_type=get_session_group_name(), title=title, result=result,
-                           col_titles=["ID покупателя", "Дата заключения контракта", "Имя", "Фамилия", "Город"])
+    return render_template('query_results.html', title=title, result=result,
+                           col_titles=["ID покупателя",
+                                       "Дата заключения контракта",
+                                       "Имя",
+                                       "Фамилия",
+                                       "Город"])
 
 
 # Обработчик запроса 2 GET
@@ -81,11 +85,11 @@ def query_2_result():
                 result = 'Not found'
         else:
             return render_template('query_2.html', is_valid=False)
-    return render_template('query_results.html', user_type=get_session_group_name(), title=title, result=result,
-                           col_titles=["ID детали",
+    return render_template('query_results.html', title=title, result=result,
+                           col_titles=["ID",
                                        "Название детали",
                                        "Материал",
-                                       "Вес",
+                                       "Вес (г)",
                                        "Стоимость",
                                        "Количество на складе",
                                        "Обновлено"])
